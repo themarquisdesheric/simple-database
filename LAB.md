@@ -2,7 +2,7 @@
 ===
 
 ## Doc/Resources
-* [Node fs docs](https://nodejs.org/api/fs.html) - specifically the methods readFile and writeFile
+* [Node fs docs](https://nodejs.org/api/fs.html) - specifically the methods `readFile` and `writeFile`
 
 * JSON [stringify](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify) 
 and [parse](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse)
