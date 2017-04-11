@@ -24,7 +24,7 @@ Use json as a file format to store (serialized and deserialized) javascript obje
 You should use TDD to drive the implementation. Note that these are mostly E2E (end to end) tests, but we will use the 
 basic structure of mocha's testing ability.
 
-The setup for the test can be difficult as we want to ensure the tests start with a "clean" file directory **(hint: this is where `rimraf` will come in handy)**
+The setup for the test can be difficult as we want to ensure the tests start with a "clean" file directory **(hint: this is where `rimraf` will come in handy)** You will want to read about [Mocha's before/after hooks](https://mochajs.org/#hooks)
 
 Initially, you can inspect the file system in your tests. 
 
