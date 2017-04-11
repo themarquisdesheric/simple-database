@@ -41,6 +41,8 @@ connection between the three functions to test their respective actions.
 Your db should offer the following methods:
 
 * `.save(<table>, <objectToSave>, callback)`
+  * creates a `_id` property for the object
+  * saves the object in a file, where the filename is the `_id`. e.g. if the id is 12345, the file will be 12345.json
   * returns `objectToSave` with added `_id` property
 * `.get(<table>, <id>, callback)`
   * returns the object from the requested table that has that id
