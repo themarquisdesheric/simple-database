@@ -28,6 +28,8 @@ The setup for the test can be difficult as we want to ensure the tests start wit
 
 Initially, you can inspect the file system in your tests. 
 
+Your tests will need to handle asynchronous calls.  You will need to read about [Mocha and async support](https://mochajs.org/#asynchronous-code)
+
 ### Bonus
 
 See if you can evolve your tests to not test the implementation (file system write), but rather use the logically
@@ -38,7 +40,7 @@ connection between the three functions to test their respective actions.
 
 Your db should offer the following methods:
 
-* `.save(<table>, <objectToSave>, callback)`
+* `.save(<tae>, <objectToSave>, callback)`
   * returns `objectToSave` with added `_id` property
 * `.get(<table>, <id>, callback)`
   * returns the object from the requested table that has that id
