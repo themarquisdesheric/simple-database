@@ -12,7 +12,7 @@ and [parse](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Gl
 
 In this first part of the assignment, create a factory module (a module that exports a function that can be called
 with configuration arguments to create a certain type of return object) that takes the name of an initial directory
-and returns on object with three asynchronous methods (functions on an obect) that 
+and returns an object with three asynchronous methods (functions on an obect) that 
 are the start of a very simplistic database.
 
 Use json as a file format to store (serialized and deserialized) javascript objects.
@@ -21,10 +21,10 @@ Use json as a file format to store (serialized and deserialized) javascript obje
 
 ## Testing
 
-You should use TDD to drive the implementation. Note that these are mostly E2E tests, but we will use the 
+You should use TDD to drive the implementation. Note that these are mostly E2E (end to end) tests, but we will use the 
 basic structure of mocha's testing ability.
 
-The setup for the test can be difficult as we want to ensure the tests start with a "clean" file directory.
+The setup for the test can be difficult as we want to ensure the tests start with a "clean" file directory **(hint: this is where `rimraf` will come in handy)**
 
 Initially, you can inspect the file system in your tests. 
 
@@ -74,8 +74,8 @@ db.getAll('cats', (err, cats) => {
 ```
 
 
-* Use an npm package to find a library to assign id's (there are tons)
-* Use the supplied table name as a folder to store object, and use the id as the file name:
+* Use an npm package to find a library to assign id's (there are tons), e.g. [shortid](https://www.npmjs.com/package/shortid) or [uuid](https://www.npmjs.com/package/uuid)
+* Use the supplied table name as a folder to store objects, and use the id as the file name:
 
   ```
   ---+ data
