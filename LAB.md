@@ -2,12 +2,13 @@
 ===
 
 ## Doc/Resources
-* [Node fs docs](https://nodejs.org/api/fs.html)
+* [Node fs docs](https://nodejs.org/api/fs.html) - specifically the methods readFile and writeFile
+
 * JSON [stringify](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify) 
 and [parse](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse)
 * Checkout `mkdirp` and `rimraf` on `npm`
 
-##Description:
+## Description:
 
 In this first part of the assignment, create a factory module (a module that exports a function that can be called
 with configuration arguments to create a certain type of return object) that takes the name of an initial directory
@@ -93,7 +94,7 @@ db.getAll('cats', (err, cats) => {
 
 Standard repository/dev stuff: README, package.json, travis-ci, tests, meaningful commits, named npm scripts, etc.
 
-##Rubric:
+## Rubric:
 
 * Tests: 3pts
 * Async Coding: 3pts
