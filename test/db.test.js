@@ -1,11 +1,13 @@
-const fs = require('fs');
 const assert = require('assert');
-const getObject = require('../lib/lab');
+const dbFactory = require('../lib/db-factory');
 
-describe('get object', () => {
+const TEST_DIR = './data';
+const db = dbFactory(TEST_DIR);
+
+describe('db.get()', () => {
 
   it('gets a cat given an id', done => {
-    getObject('./data', 'cats', 'f1de5', (err, data) => {
+    db.get('cats', 'f1de5', (err, data) => {
       assert.deepEqual(data, {
         'name': 'fluffy', 
         '_id': 'f1de5'
@@ -15,7 +17,7 @@ describe('get object', () => {
   });
 
   it('gets a cat given an id', done => {
-    getObject('./data', 'cats', '5khkh4', (err, data) => {
+    db.get('cats', '5khkh4', (err, data) => {
       assert.deepEqual(data, {
         'name': 'sparky', 
         '_id': '5khkh4'
@@ -25,7 +27,7 @@ describe('get object', () => {
   });
 
   it('gets a dog given an id', done => {
-    getObject('./data', 'dogs', '39dkj7', (err, data) => {
+    db.get('dogs', '39dkj7', (err, data) => {
       assert.deepEqual(data, {
         'name': 'pooch', 
         '_id': '39dkj7'
@@ -35,7 +37,7 @@ describe('get object', () => {
   });
 
   it('gets a dog given an id', done => {
-    getObject('./data', 'dogs', 'hk333', (err, data) => {
+    db.get('dogs', 'hk333', (err, data) => {
       assert.deepEqual(data, {
         'name': 'doggy', 
         '_id': 'hk333'
@@ -45,7 +47,7 @@ describe('get object', () => {
   });
 
   it('returns null when it can\'t find an object with that id', done => {
-    getObject('./data', 'cats', 'doesnotexist', (err, data) => {
+    db.get('cats', 'doesnotexist', (err, data) => {
       assert.equal(data, null);
       done();
     });
