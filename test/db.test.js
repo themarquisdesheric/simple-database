@@ -71,6 +71,21 @@ describe('db', () => {
       });
     });
 
+    it.only('creates a directory if none exists', done => {
+      const baobao = {
+        name: 'baobao',
+        type: 'panda'
+      };
+      db.save('bears', baobao, (err, data) => {
+        if (err) return done(err);
+        db.get('bears', data._id, (err, bear) => {
+          if (err) return done(err);
+          assert.equal(bear.name, baobao.name);
+          done();
+        });
+      });
+    });
+
   });
 
 });
