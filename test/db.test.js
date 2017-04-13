@@ -4,8 +4,10 @@ const rimraf = require('rimraf');
 
 const TEST_DIR = './data';
 const db = dbFactory(TEST_DIR);
+
 const testCat1 = { name: 'testcat1', type: 'best'};
 const testCat2 = { name: 'testcat2', type: 'bestcat'};
+
 const testDog1 = { name: 'testDog1', type: 'dawg'};
 const testDog2 = { name: 'testDog2', type: 'bestdawg'};
 
@@ -85,7 +87,7 @@ describe('db', () => {
     });
   });
 
-  describe('db.save', () => {
+  describe('db.save()', () => {
 
     before(done => {
       rimraf(TEST_DIR, err => {
@@ -126,28 +128,30 @@ describe('db', () => {
   });
 
   describe('db.getAll()', () => {
-
     it('given a directory, returns an array of objects', done => {
       db.getAll('bears', (err, bears) => {
-        //assert.equal(, );
+        if (err) return done(err);
+        const parsedBears = JSON.parse(bears[0]);
+        assert.equal(parsedBears.name, 'baobao');
+        done();
+      });
+    });
+  });
+
+  describe('db.getAll()', () => {
+    before(done => {
+      rimraf('./data/bears/*', err => {
+        done(err);
       });
     });
 
-    // before(done => {
-    //   rimraf('./data/bears/*', err => {
-    //     done(err);
-    //   });
-    // });
-
-    // it('returns empty array when directory has no contents', done => {
-    //   const bearArray = [];
-    //   db.getAll('bears', (err, bears) => {
-    //     if (err) done(err);
-    //     assert.equal(bears, bearArray);
-    //   });
-    //   done();
-    // });
-
+    it('returns empty array when directory has no contents', done => {
+      db.getAll('bears', (err, bears) => {
+        if (err) return done(err);
+        assert.deepEqual(bears, []);
+        done();
+      });
+    });
   });
 
 });
