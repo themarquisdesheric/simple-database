@@ -4,46 +4,75 @@ const rimraf = require('rimraf');
 
 const TEST_DIR = './data';
 const db = dbFactory(TEST_DIR);
+const testCat1 = { name: 'testcat1', type: 'best'};
+const testCat2 = { name: 'testcat2', type: 'bestcat'};
+const testDog1 = { name: 'testDog1', type: 'dawg'};
+const testDog2 = { name: 'testDog2', type: 'bestdawg'};
 
 describe('db', () => {
+
+  before(done => {
+    db.save('cats', testCat1, (err, data) => {
+      if (err) return done(err);
+      testCat1._id = data._id;
+      done();
+    });
+  });
+
+  before(done => {
+    db.save('cats', testCat2, (err, data) => {
+      if (err) return done(err);
+      testCat2._id = data._id;
+      done();
+    });
+  });
+
+  before(done => {
+    db.save('dogs', testDog1, (err, data) => {
+      if (err) return done(err);
+      testDog1._id = data._id;
+      done();
+    });
+  });
+
+  before(done => {
+    db.save('dogs', testDog2, (err, data) => {
+      if (err) return done(err);
+      testDog2._id = data._id;
+      done();
+    });
+  });
+
   describe('db.get()', () => {
 
     it('gets a cat given an id', done => {
-      db.get('cats', 'f1de5', (err, data) => {
-        assert.deepEqual(data, {
-          'name': 'fluffy', 
-          '_id': 'f1de5'
-        });
+      db.get('cats', testCat1._id, (err, data) => {
+        assert.equal(data.name, testCat1.name);
+        assert.equal(data._id, testCat1._id);
         done();
       });
     });
 
     it('gets a cat given an id', done => {
-      db.get('cats', '5khkh4', (err, data) => {
-        assert.deepEqual(data, {
-          'name': 'sparky', 
-          '_id': '5khkh4'
-        });
+      db.get('cats', testCat2._id, (err, data) => {
+        assert.equal(data.name, testCat2.name);
+        assert.equal(data._id, testCat2._id);
         done();
       });
     });
 
     it('gets a dog given an id', done => {
-      db.get('dogs', '39dkj7', (err, data) => {
-        assert.deepEqual(data, {
-          'name': 'pooch', 
-          '_id': '39dkj7'
-        });
+      db.get('dogs', testDog1._id, (err, data) => {
+        assert.equal(data.name, testDog1.name);
+        assert.equal(data._id, testDog1._id);
         done();
       });
     });
 
     it('gets a dog given an id', done => {
-      db.get('dogs', 'hk333', (err, data) => {
-        assert.deepEqual(data, {
-          'name': 'doggy', 
-          '_id': 'hk333'
-        });
+      db.get('dogs', testDog2._id, (err, data) => {
+        assert.equal(data.name, testDog2.name);
+        assert.equal(data._id, testDog2._id);
         done();
       });
     });
@@ -92,6 +121,18 @@ describe('db', () => {
           done();
         });
       });
+    });
+
+  });
+
+  describe('db.getAll()', () => {
+
+    it('returns empty array when directory has no contents', done => {
+      const bearArray = [];
+      db.getAll('bears', (err, bears) => {
+        assert.equal(bears, bearArray);
+      });
+      done();
     });
 
   });
