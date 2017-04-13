@@ -1,6 +1,6 @@
 const assert = require('assert');
-const dbFactory = require('../lib/db-factory');
 const rimraf = require('rimraf');
+const dbFactory = require('../lib/db-factory');
 
 const TEST_DIR = './data';
 const db = dbFactory(TEST_DIR);
@@ -131,8 +131,7 @@ describe('db', () => {
     it('given a directory, returns an array of objects', done => {
       db.getAll('bears', (err, bears) => {
         if (err) return done(err);
-        const parsedBears = JSON.parse(bears[0]);
-        assert.equal(parsedBears.name, 'baobao');
+        assert.equal(bears[0].name, 'baobao');
         done();
       });
     });
