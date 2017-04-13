@@ -127,13 +127,26 @@ describe('db', () => {
 
   describe('db.getAll()', () => {
 
-    it('returns empty array when directory has no contents', done => {
-      const bearArray = [];
+    it('given a directory, returns an array of objects', done => {
       db.getAll('bears', (err, bears) => {
-        assert.equal(bears, bearArray);
+        //assert.equal(, );
       });
-      done();
     });
+
+    // before(done => {
+    //   rimraf('./data/bears/*', err => {
+    //     done(err);
+    //   });
+    // });
+
+    // it('returns empty array when directory has no contents', done => {
+    //   const bearArray = [];
+    //   db.getAll('bears', (err, bears) => {
+    //     if (err) done(err);
+    //     assert.equal(bears, bearArray);
+    //   });
+    //   done();
+    // });
 
   });
 
