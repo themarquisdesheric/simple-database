@@ -1,5 +1,6 @@
 const assert = require('assert');
 const dbFactory = require('../lib/db-factory');
+const rimraf = require('rimraf');
 
 const TEST_DIR = './data';
 const db = dbFactory(TEST_DIR);
@@ -57,6 +58,12 @@ describe('db', () => {
 
   describe('db.save', () => {
 
+    before(done => {
+      rimraf(TEST_DIR, err => {
+        done(err);
+      });
+    });
+
     it('saves the data in a file and returns that object with a generated id', done => {
       const maru = {
         name: 'maru',
@@ -71,11 +78,12 @@ describe('db', () => {
       });
     });
 
-    it.only('creates a directory if none exists', done => {
+    it('creates a directory if none exists', done => {
       const baobao = {
         name: 'baobao',
         type: 'panda'
       };
+
       db.save('bears', baobao, (err, data) => {
         if (err) return done(err);
         db.get('bears', data._id, (err, bear) => {
