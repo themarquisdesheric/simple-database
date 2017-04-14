@@ -218,15 +218,15 @@ describe('db', () => {
     });
 
     it('should remove the object with given id from the table', done => {
-      db.remove('bears', testBear2._id, (err) => {
+      db.remove('bears', testBear2._id, (err, response) => {
         if (err) return done(err);
-        db.get('bears', testBear2._id, (err) => {
-          
-          assert.equal(err, 'Error: Requested ID not found');
-          done();
-        });
+        assert.deepEqual(response, {removed: true});
+        done();
       });
     });
+
+    
+
   });
 
 });
