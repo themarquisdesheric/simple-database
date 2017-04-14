@@ -193,10 +193,18 @@ describe('db', () => {
       db.update('bears', testBear2, (err, bear) => {
         if (err) return done(err);
         assert.equal(bear.testProp, true);
-        
         done();
       });
     });
+
+    it('should return the object that was updated', done => {
+      db.update('bears', testBear2, (err, bear) => {
+        if (err) return done(err);
+        assert.deepEqual(bear, testBear2);
+        done();
+      });
+    });
+
   });
 
   describe('db.remove()', () => {
@@ -215,7 +223,6 @@ describe('db', () => {
         db.get('bears', testBear2._id, (err) => {
           
           assert.equal(err, 'Error: Requested ID not found');
-
           done();
         });
       });
