@@ -225,7 +225,12 @@ describe('db', () => {
       });
     });
 
-    
+    it('should return {removed: false} if object to be removed did not exist', done => {
+      db.remove('bears', 'khkh3k3', (err) => {
+        assert.deepEqual(err, {removed: false});
+        done();
+      });
+    });
 
   });
 
