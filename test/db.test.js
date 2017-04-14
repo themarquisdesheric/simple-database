@@ -7,10 +7,11 @@ const db = dbFactory(TEST_DIR);
 
 const testCat1 = { name: 'testcat1', type: 'best'};
 const testCat2 = { name: 'testcat2', type: 'bestcat'};
-const testCat3 = { name: 'testcat2', type: 'bestcat'};
+const testCat3 = { name: 'testcat3', type: 'bestcat'};
 const testDog1 = { name: 'testDog1', type: 'dawg'};
 const testDog2 = { name: 'testDog2', type: 'bestdawg'};
-let baobao = { name: 'baobao', type: 'panda'};
+let   testBear1 = { name: 'baobao', type: 'panda'};
+const testBear2 = { name: 'newbear', type: 'pooh', _id: 'hkkkh3'};
 
 describe('db', () => {
 
@@ -111,11 +112,11 @@ describe('db', () => {
     });
 
     it('creates a directory if none exists', done => {
-      db.save('bears', baobao, (err, data) => {
+      db.save('bears', testBear1, (err, data) => {
         if (err) return done(err);
         db.get('bears', data._id, (err, bear) => {
           if (err) return done(err);
-          assert.equal(bear.name, baobao.name);
+          assert.equal(bear.name, testBear1.name);
           done();
         });
       });
@@ -149,9 +150,9 @@ describe('db', () => {
     });
 
     after(done => {
-      db.save('bears', baobao, (err, bear) => {
+      db.save('bears', testBear1, (err, bear) => {
         if (err) return done(err);
-        delete baobao._id;
+        delete testBear1._id;
         done();
       });
     });
@@ -170,15 +171,24 @@ describe('db', () => {
     it('should read the id property of the object if it is found', done => {
       db.update('cats', testCat3, (err, cat) => {
         if (err) return done(err);
-        assert.equal(cat, testCat3._id);
+        assert.equal(cat._id, testCat3._id);
         done();
       });
     });
 
     it('should throw an error if object is not found', done => {
-      db.update('bears', baobao, (err, bear) => {
+      db.update('bears', testBear1, (err, bear) => {
         if (!err) return done(err);
         assert.equal(err, 'Error: Expected object to have an _id property');
+        done();
+      });
+    });
+
+    it('should save the provided object as a new file', done => {
+      db.update('bears', testBear2, (err, bear) => {
+        if (err) return done(err);
+        assert.equal(bear.name, 'newbear');
+        
         done();
       });
     });
