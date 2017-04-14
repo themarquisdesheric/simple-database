@@ -16,33 +16,33 @@ const testBear2 = { name: 'newbear', type: 'pooh', _id: 'hkkkh3'};
 describe('db', () => {
 
   before(done => {
-    db.save('cats', testCat1, (err, data) => {
+    db.save('cats', testCat1, (err, cat) => {
       if (err) return done(err);
-      testCat1._id = data._id;
+      testCat1._id = cat._id;
       done();
     });
   });
 
   before(done => {
-    db.save('cats', testCat2, (err, data) => {
+    db.save('cats', testCat2, (err, cat) => {
       if (err) return done(err);
-      testCat2._id = data._id;
+      testCat2._id = cat._id;
       done();
     });
   });
 
   before(done => {
-    db.save('dogs', testDog1, (err, data) => {
+    db.save('dogs', testDog1, (err, dog) => {
       if (err) return done(err);
-      testDog1._id = data._id;
+      testDog1._id = dog._id;
       done();
     });
   });
 
   before(done => {
-    db.save('dogs', testDog2, (err, data) => {
+    db.save('dogs', testDog2, (err, dog) => {
       if (err) return done(err);
-      testDog2._id = data._id;
+      testDog2._id = dog._id;
       done();
     });
   });
@@ -50,40 +50,40 @@ describe('db', () => {
   describe('db.get()', () => {
 
     it('gets a cat given an id', done => {
-      db.get('cats', testCat1._id, (err, data) => {
-        assert.equal(data.name, testCat1.name);
-        assert.equal(data._id, testCat1._id);
+      db.get('cats', testCat1._id, (err, cat) => {
+        assert.equal(cat.name, testCat1.name);
+        assert.equal(cat._id, testCat1._id);
         done();
       });
     });
 
     it('gets a cat given an id', done => {
-      db.get('cats', testCat2._id, (err, data) => {
-        assert.equal(data.name, testCat2.name);
-        assert.equal(data._id, testCat2._id);
+      db.get('cats', testCat2._id, (err, cat) => {
+        assert.equal(cat.name, testCat2.name);
+        assert.equal(cat._id, testCat2._id);
         done();
       });
     });
 
     it('gets a dog given an id', done => {
-      db.get('dogs', testDog1._id, (err, data) => {
-        assert.equal(data.name, testDog1.name);
-        assert.equal(data._id, testDog1._id);
+      db.get('dogs', testDog1._id, (err, dog) => {
+        assert.equal(dog.name, testDog1.name);
+        assert.equal(dog._id, testDog1._id);
         done();
       });
     });
 
     it('gets a dog given an id', done => {
-      db.get('dogs', testDog2._id, (err, data) => {
-        assert.equal(data.name, testDog2.name);
-        assert.equal(data._id, testDog2._id);
+      db.get('dogs', testDog2._id, (err, dog) => {
+        assert.equal(dog.name, testDog2.name);
+        assert.equal(dog._id, testDog2._id);
         done();
       });
     });
 
     it('returns null when it can\'t find an object with that id', done => {
-      db.get('cats', 'doesnotexist', (err, data) => {
-        assert.equal(data, null);
+      db.get('cats', 'doesnotexist', (err, cat) => {
+        assert.equal(cat, null);
         done();
       });
     });
@@ -197,7 +197,29 @@ describe('db', () => {
         done();
       });
     });
+  });
 
+  describe('db.remove()', () => {
+
+    before(done => {
+      db.save('bears', testBear2, (err, bear) => {
+        if (err) return done(err);
+        testBear2._id = bear._id;
+        done();
+      });
+    });
+
+    it('should remove the object with given id from the table', done => {
+      db.remove('bears', testBear2._id, (err) => {
+        if (err) return done(err);
+        db.get('bears', testBear2._id, (err) => {
+          
+          assert.equal(err, 'Error: Requested ID not found');
+
+          done();
+        });
+      });
+    });
   });
 
 });
