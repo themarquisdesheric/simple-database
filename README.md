@@ -47,3 +47,32 @@ db.getAll('cats', (err, cats) => {
   console.log('we have', cats.length, 'cats');
 });
 ```
+
+# Lab 3
+
+Structure: 
+
+```
+.update(<table>, <objectToUpdate>, callback)
+  reads the _id property from the object (error if it is not found):
+  saves the provided object as the new file
+  returns objectToUpdate
+
+.remove(<table>, <id>, callback)
+  removes the object from the requested table that has that id
+  return { removed: true } if the object was removed, else return { removed: false } if the object did not exist
+```
+
+Usage: 
+
+```
+db.update('bears', testBear2, (err, bear) => {
+  if (err) return console.log(err);
+  console.log('got bear', bear);
+});
+
+db.remove('bears', 'khkh3k3', (err) => {
+  if (err) return console.log(err);
+  console.log('removed!');
+});
+```
