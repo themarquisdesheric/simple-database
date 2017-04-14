@@ -10,7 +10,7 @@ const testCat2 = { name: 'testcat2', type: 'bestcat'};
 const testCat3 = { name: 'testcat3', type: 'bestcat'};
 const testDog1 = { name: 'testDog1', type: 'dawg'};
 const testDog2 = { name: 'testDog2', type: 'bestdawg'};
-let   testBear1 = { name: 'baobao', type: 'panda'};
+const testBear1 = { name: 'baobao', type: 'panda'};
 const testBear2 = { name: 'newbear', type: 'pooh', _id: 'hkkkh3'};
 
 describe('db', () => {
@@ -150,7 +150,7 @@ describe('db', () => {
     });
 
     after(done => {
-      db.save('bears', testBear1, (err, bear) => {
+      db.save('bears', testBear1, (err) => {
         if (err) return done(err);
         delete testBear1._id;
         done();
@@ -164,7 +164,11 @@ describe('db', () => {
       db.save('cats', testCat3, (err, cat) => {
         if (err) return done(err);
         testCat3._id = cat._id;
-        done();
+        db.save('bears', testBear2, (err, bear) => {
+          if (err) return done(err);
+          testBear2._id = bear._id;
+          done();
+        });
       });
     });
 
@@ -179,19 +183,20 @@ describe('db', () => {
     it('should throw an error if object is not found', done => {
       db.update('bears', testBear1, (err) => {
         if (!err) return done(err);
-        assert.equal(err, 'Error: Expected object to have an _id property');
+        assert.equal(err, 'Error: Requested ID not found');
         done();
       });
     });
 
-    // it('should save the provided object as a new file', done => {
-    //   db.update('bears', testBear2, (err, bear) => {
-    //     if (err) return done(err);
-    //     assert.equal(bear.name, 'newbear');
+    it('should save the provided object as a new file', done => {
+      testBear2.testProp = true;
+      db.update('bears', testBear2, (err, bear) => {
+        if (err) return done(err);
+        assert.equal(bear.testProp, true);
         
-    //     done();
-    //   });
-    // });
+        done();
+      });
+    });
 
   });
 
