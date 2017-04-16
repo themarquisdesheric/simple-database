@@ -47,6 +47,7 @@ describe('db', () => {
     });
   });
 
+
   describe('db.get()', () => {
 
     it('gets a cat given an id', done => {
@@ -89,6 +90,7 @@ describe('db', () => {
     });
   });
 
+
   describe('db.save()', () => {
 
     before(done => {
@@ -121,8 +123,8 @@ describe('db', () => {
         });
       });
     });
-
   });
+
 
   describe('db.getAll()', () => {
     it('given a directory, returns an array of objects', done => {
@@ -133,6 +135,7 @@ describe('db', () => {
       });
     });
   });
+
 
   describe('db.getAll()', () => {
     before(done => {
@@ -157,6 +160,7 @@ describe('db', () => {
       });
     });
   });
+
 
   describe('db.update()', () => {
 
@@ -204,8 +208,8 @@ describe('db', () => {
         done();
       });
     });
-
   });
+
 
   describe('db.remove()', () => {
 
@@ -231,7 +235,5 @@ describe('db', () => {
         done();
       });
     });
-
   });
-
 });
